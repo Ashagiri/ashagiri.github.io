@@ -1,7 +1,6 @@
 <div align="center">
 
 
-
   <h1>✨ Asha Giri</h1>
   <p><strong>Software & Backend Engineer</strong></p>
 
