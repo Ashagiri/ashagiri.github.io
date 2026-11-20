@@ -3,269 +3,436 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asha Giri | TI & Backend Developer</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts & Font Awesome Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="Asha Giri — IT Engineering student and developer building practical web applications and interactive software with Python, Django, JavaScript and computer vision.">
+  <meta property="og:title" content="Asha Giri | Developer Portfolio">
+  <meta property="og:description" content="Explore Asha Giri's projects, technical skills and developer journey.">
+  <meta property="og:type" content="website">
+  <title>Asha Giri | Developer Portfolio</title>
 
+  <!-- Tailwind CDN is convenient for this GitHub Pages version.
+       For a production build, consider compiling Tailwind locally. -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
+            mono: ['"JetBrains Mono"', 'monospace']
           },
+          colors: {
+            ink: '#080b14',
+            panel: '#101626',
+            accent: '#a78bfa',
+            cyan: '#67e8f9'
+          }
         }
       }
-    }
+    };
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
   <style>
-    /* Custom Gemini-style Gradient Mesh & Glass FX */
-    .gemini-gradient {
-      background: radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.08), rgba(15, 23, 42, 0));
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      background:
+        radial-gradient(ellipse at 12% 4%, rgba(124, 58, 237, .16), transparent 34rem),
+        radial-gradient(ellipse at 88% 28%, rgba(14, 165, 233, .10), transparent 32rem),
+        #080b14;
     }
-    .gemini-text-gradient {
-      background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #38bdf8 100%);
+    .grid-bg {
+      background-image: linear-gradient(rgba(148,163,184,.045) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(148,163,184,.045) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+    .gradient-text {
+      background: linear-gradient(110deg, #c4b5fd 5%, #a78bfa 42%, #67e8f9 95%);
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .glass {
+      background: rgba(16, 22, 38, .72);
+      border: 1px solid rgba(148, 163, 184, .14);
+      backdrop-filter: blur(16px);
+      transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
     }
-    .glass-card:hover {
-      border-color: rgba(168, 85, 247, 0.3);
-      box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.15);
+    .glass:hover {
+      border-color: rgba(167, 139, 250, .42);
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .22);
+      transform: translateY(-4px);
+    }
+    .section-kicker {
+      color: #a78bfa;
+      font: 500 .72rem/1.5 "JetBrains Mono", monospace;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .section-title { letter-spacing: -.045em; }
+    .focus-ring:focus-visible {
+      outline: 2px solid #a78bfa;
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .skill-chip { border: 1px solid rgba(148,163,184,.16); background: rgba(30,41,59,.48); }
+    .project-topline { height: 3px; background: linear-gradient(90deg, #8b5cf6, #22d3ee); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-200 font-sans antialiased selection:bg-purple-500 selection:text-white relative min-h-screen">
 
-  <!-- Ambient Glow Background -->
-  <div class="fixed inset-0 gemini-gradient pointer-events-none z-0"></div>
+<body class="min-h-screen overflow-x-hidden font-sans text-slate-200 antialiased selection:bg-violet-500/40 selection:text-white">
+  <div class="pointer-events-none fixed inset-0 -z-10 grid-bg"></div>
 
   <!-- Navigation -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0b0f19]/70 border-b border-slate-800/60">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="#" class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
-        <span class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 inline-block animate-pulse"></span>
-        Asha<span class="text-purple-400">Giri</span>
+  <header class="sticky top-0 z-50 border-b border-white/[.07] bg-[#080b14]/80 backdrop-blur-xl">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8" aria-label="Main navigation">
+      <a href="#home" class="focus-ring flex items-center gap-2 text-lg font-extrabold tracking-tight text-white">
+        <span class="grid h-8 w-8 place-items-center rounded-xl bg-violet-500/15 text-violet-300 ring-1 ring-violet-400/25">A</span>
+        Asha<span class="text-violet-300">Giri</span><span class="text-slate-500">.</span>
       </a>
-      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-        <a href="#about" class="hover:text-purple-400 transition">About</a>
-        <a href="#skills" class="hover:text-purple-400 transition">Tech Stack</a>
-        <a href="#projects" class="hover:text-purple-400 transition">Projects</a>
-        <a href="#contact" class="hover:text-purple-400 transition">Contact</a>
-      </nav>
-      <a href="https://github.com/Ashagiri" target="_blank" class="px-4 py-2 text-xs font-semibold text-purple-300 bg-purple-500/10 border border-purple-500/30 rounded-full hover:bg-purple-500/20 transition flex items-center gap-2">
-        <i class="fab fa-github"></i> GitHub
+
+      <div class="hidden items-center gap-8 text-sm text-slate-400 md:flex">
+        <a class="focus-ring transition hover:text-white" href="#about">About</a>
+        <a class="focus-ring transition hover:text-white" href="#skills">Skills</a>
+        <a class="focus-ring transition hover:text-white" href="#projects">Projects</a>
+        <a class="focus-ring transition hover:text-white" href="#journey">Journey</a>
+        <a class="focus-ring transition hover:text-white" href="#contact">Contact</a>
+      </div>
+
+      <a href="https://github.com/Ashagiri" target="_blank" rel="noopener noreferrer"
+         class="focus-ring hidden items-center gap-2 rounded-full border border-violet-400/30 bg-violet-400/10 px-4 py-2 text-sm font-semibold text-violet-200 transition hover:bg-violet-400/20 sm:inline-flex">
+        <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
       </a>
+
+      <button id="menuButton" class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-slate-200 md:hidden"
+              aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+    </nav>
+    <div id="mobileMenu" class="hidden border-t border-white/[.07] bg-[#0b1020] px-5 py-4 md:hidden">
+      <div class="mx-auto flex max-w-6xl flex-col gap-4 text-sm text-slate-300">
+        <a class="mobile-link py-1 hover:text-violet-300" href="#about">About</a>
+        <a class="mobile-link py-1 hover:text-violet-300" href="#skills">Skills</a>
+        <a class="mobile-link py-1 hover:text-violet-300" href="#projects">Projects</a>
+        <a class="mobile-link py-1 hover:text-violet-300" href="#journey">Journey</a>
+        <a class="mobile-link py-1 hover:text-violet-300" href="#contact">Contact</a>
+        <a class="py-1 text-violet-300" href="https://github.com/Ashagiri" target="_blank" rel="noopener noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i></a>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 space-y-32 py-16 relative z-10">
-
-    <!-- Hero Section -->
-    <section id="about" class="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 pt-8">
-      <div class="space-y-6 lg:w-3/5 text-center lg:text-left">
-        
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-800/80 border border-slate-700/60 rounded-full text-xs font-medium text-slate-300">
-          <span class="flex h-2 w-2 relative">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+  <main id="home" class="relative mx-auto max-w-6xl px-5 md:px-8">
+    <!-- Hero -->
+    <section class="grid min-h-[82vh] items-center gap-14 py-20 md:grid-cols-[1.2fr_.8fr] md:py-28">
+      <div class="reveal">
+        <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/[.07] px-4 py-2 text-xs font-medium text-emerald-200">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
           </span>
-          Actively Seeking Software Engineering Internships
+          Open to software engineering opportunities
         </div>
 
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">
-          Building practical software with <span class="gemini-text-gradient">precision & purpose.</span>
+        <p class="mb-4 font-mono text-sm text-violet-300">Hello, world! I'm</p>
+        <h1 class="max-w-3xl text-5xl font-extrabold leading-[1.08] tracking-[-.055em] text-white sm:text-6xl lg:text-7xl">
+          Asha Giri<span class="gradient-text">.</span>
+          <span class="mt-3 block text-3xl leading-tight text-slate-300 sm:text-4xl lg:text-5xl">I build things for the web<span class="gradient-text">.</span></span>
         </h1>
-
-        <p class="text-base md:text-lg text-slate-400 leading-relaxed max-w-2xl">
-          👋 Hi, I'm <strong class="text-slate-200">Asha Giri</strong>, an IT Engineering student at <span class="text-slate-200">NCIT</span>. I specialize in full-stack web applications using <span class="text-purple-400 font-semibold">Python & Django</span>, with strong foundations in <span class="text-indigo-400 font-semibold">AWS Cloud</span>, relational databases, and clean system architecture.
+        <p class="mt-7 max-w-2xl text-base leading-8 text-slate-400 md:text-lg">
+          I'm an IT Engineering student at NCIT who enjoys turning ideas into practical software.
+          I work with Python, Django and web technologies, and I'm exploring cloud computing and computer vision.
         </p>
 
-        <!-- CTA Buttons -->
-        <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
-          <a href="#projects" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:opacity-90 transition shadow-lg shadow-purple-500/20 text-sm flex items-center gap-2">
-            Explore Projects <i class="fas fa-arrow-right text-xs"></i>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="#projects" class="focus-ring inline-flex items-center gap-2 rounded-xl bg-violet-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-violet-950/40 transition hover:bg-violet-400">
+            Explore my work <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
           </a>
-          <a href="https://linkedin.com/in/asha-giri-b081273a5" target="_blank" class="px-6 py-3 glass-card text-slate-300 font-semibold rounded-xl hover:text-white transition text-sm flex items-center gap-2">
-            <i class="fab fa-linkedin text-purple-400"></i> LinkedIn Profile
+          <a href="#contact" class="focus-ring inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[.03] px-6 py-3.5 text-sm font-semibold text-slate-200 transition hover:border-violet-300/40 hover:bg-white/[.07]">
+            Get in touch
           </a>
         </div>
-      </div>
 
-      <!-- Avatar with Glow Ring -->
-      <div class="lg:w-2/5 flex justify-center">
-        <div class="relative group">
-          <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition duration-500"></div>
-          <div class="relative w-56 h-56 md:w-64 md:h-64 rounded-full p-1.5 bg-slate-900 ring-1 ring-slate-800">
-            <img src="https://github.com/Ashagiri.png" alt="Asha Giri" class="w-full h-full object-cover rounded-full">
-          </div>
+        <div class="mt-9 flex items-center gap-5 text-xl text-slate-400">
+          <a class="focus-ring transition hover:text-white" href="https://github.com/Ashagiri" target="_blank" rel="noopener noreferrer" aria-label="Asha on GitHub"><i class="fa-brands fa-github"></i></a>
+          <a class="focus-ring transition hover:text-sky-300" href="https://linkedin.com/in/asha-giri-b081273a5" target="_blank" rel="noopener noreferrer" aria-label="Asha on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <span class="h-5 w-px bg-slate-700"></span>
+          <span class="font-mono text-xs text-slate-500">Based in Nepal</span>
         </div>
       </div>
-    </section>
 
-    <!-- Tech Stack Section -->
-    <section id="skills" class="space-y-8">
-      <div class="text-center md:text-left space-y-2">
-        <h2 class="text-xs font-bold text-purple-400 tracking-widest uppercase font-mono">Capabilities</h2>
-        <h3 class="text-3xl font-extrabold text-white">Technical Stack</h3>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- Languages & Web -->
-        <div class="glass-card p-6 rounded-2xl space-y-4 transition">
-          <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
-            <i class="fas fa-code"></i>
+      <div class="reveal relative mx-auto w-full max-w-sm">
+        <div class="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-violet-600/25 via-fuchsia-500/10 to-cyan-400/20 blur-2xl"></div>
+        <div class="glass relative overflow-hidden rounded-[2rem] p-4">
+          <div class="flex items-center justify-between border-b border-white/[.08] px-2 pb-4">
+            <div class="flex gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-rose-400/80"></span><span class="h-2.5 w-2.5 rounded-full bg-amber-300/80"></span><span class="h-2.5 w-2.5 rounded-full bg-emerald-400/80"></span></div>
+            <span class="font-mono text-[10px] text-slate-500">asha-giri.dev</span>
           </div>
-          <h4 class="text-lg font-bold text-white">Languages & Core</h4>
-          <div class="flex flex-wrap gap-2 pt-1">
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">Python</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">JavaScript</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">SQL</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">HTML5 / CSS3</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">PHP</span>
-          </div>
-        </div>
-
-        <!-- Frameworks & Tools -->
-        <div class="glass-card p-6 rounded-2xl space-y-4 transition">
-          <div class="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-            <i class="fas fa-layer-group"></i>
-          </div>
-          <h4 class="text-lg font-bold text-white">Frameworks & Tools</h4>
-          <div class="flex flex-wrap gap-2 pt-1">
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">Django</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">React</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">Tailwind CSS</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">Bootstrap</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">Git & GitHub</span>
-          </div>
-        </div>
-
-        <!-- Cloud & Databases -->
-        <div class="glass-card p-6 rounded-2xl space-y-4 transition">
-          <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
-            <i class="fas fa-cloud"></i>
-          </div>
-          <h4 class="text-lg font-bold text-white">Cloud & Databases</h4>
-          <div class="flex flex-wrap gap-2 pt-1">
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">AWS Cloud</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">PostgreSQL</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">MySQL</span>
-            <span class="px-3 py-1 bg-slate-800/80 text-slate-300 rounded-lg text-xs font-mono border border-slate-700/50">REST APIs</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="space-y-8">
-      <div class="text-center md:text-left space-y-2">
-        <h2 class="text-xs font-bold text-purple-400 tracking-widest uppercase font-mono">Portfolio</h2>
-        <h3 class="text-3xl font-extrabold text-white">Featured Projects</h3>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        <!-- Project 1 -->
-        <div class="glass-card p-8 rounded-2xl flex flex-col justify-between space-y-6 group transition">
-          <div class="space-y-4">
-            <div class="flex justify-between items-center">
-              <span class="text-xs font-mono text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded border border-purple-500/20">Full-Stack / Django</span>
-              <a href="https://github.com/Ashagiri/College-Event-Management-System" target="_blank" class="text-slate-400 hover:text-white transition">
-                <i class="fab fa-github text-xl"></i>
-              </a>
+          <div class="p-3">
+            <img src="https://github.com/Ashagiri.png" alt="Profile portrait of Asha Giri" class="aspect-square w-full rounded-2xl object-cover" loading="eager">
+            <div class="px-1 pb-1 pt-5">
+              <p class="text-xl font-bold text-white">Curious by nature.</p>
+              <p class="mt-1 text-sm text-slate-400">Building, learning, and improving one project at a time.</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="skill-chip rounded-lg px-3 py-1.5 font-mono text-[11px] text-violet-200">Python</span>
+                <span class="skill-chip rounded-lg px-3 py-1.5 font-mono text-[11px] text-cyan-200">Django</span>
+                <span class="skill-chip rounded-lg px-3 py-1.5 font-mono text-[11px] text-fuchsia-200">Problem solving</span>
+              </div>
             </div>
-            <h4 class="text-2xl font-bold text-white group-hover:text-purple-300 transition">College Event Management System</h4>
-            <p class="text-slate-400 text-sm leading-relaxed">
-              A comprehensive Django application designed to digitize campus event creation, student registrations, schedules, and administrator metrics with role-based permissions.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-slate-800 flex justify-between items-center text-xs text-slate-400 font-mono">
-            <span>Python • Django • SQLite</span>
-            <a href="https://github.com/Ashagiri/College-Event-Management-System" target="_blank" class="text-purple-400 hover:underline flex items-center gap-1 font-sans font-medium">
-              View Repository &rarr;
-            </a>
           </div>
         </div>
-
-        <!-- Project 2 -->
-        <div class="glass-card p-8 rounded-2xl flex flex-col justify-between space-y-6 group transition">
-          <div class="space-y-4">
-            <div class="flex justify-between items-center">
-              <span class="text-xs font-mono text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded border border-indigo-500/20">Backend / Architecture</span>
-              <a href="https://github.com/Ashagiri/Hos-Lab-Era" target="_blank" class="text-slate-400 hover:text-white transition">
-                <i class="fab fa-github text-xl"></i>
-              </a>
-            </div>
-            <h4 class="text-2xl font-bold text-white group-hover:text-indigo-300 transition">Hospital Lab Management System</h4>
-            <p class="text-slate-400 text-sm leading-relaxed">
-              Healthcare platform built to handle form bookings, lab diagnostic workflows, custom data models, and secure patient data navigation.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-slate-800 flex justify-between items-center text-xs text-slate-400 font-mono">
-            <span>Python • Django • PostgreSQL</span>
-            <a href="https://github.com/Ashagiri/Hos-Lab-Era" target="_blank" class="text-indigo-400 hover:underline flex items-center gap-1 font-sans font-medium">
-              View Repository &rarr;
-            </a>
-          </div>
+        <div class="absolute -bottom-5 -left-7 hidden rounded-2xl border border-violet-300/20 bg-[#11182a] px-4 py-3 shadow-xl sm:block">
+          <p class="font-mono text-[10px] text-slate-500">CURRENT FOCUS</p>
+          <p class="mt-1 text-sm font-semibold text-violet-200">Backend development</p>
         </div>
-
       </div>
     </section>
 
-    <!-- Certifications Highlight -->
-    <section class="glass-card p-8 rounded-2xl space-y-4 border border-purple-500/20">
-      <div class="flex items-center gap-3">
-        <div class="p-3 bg-purple-500/10 rounded-xl text-purple-400">
-          <i class="fas fa-award text-xl"></i>
-        </div>
+    <!-- About -->
+    <section id="about" class="scroll-mt-28 py-20">
+      <div class="reveal grid gap-10 md:grid-cols-[.7fr_1.3fr]">
         <div>
-          <h4 class="text-lg font-bold text-white">AWS Academy Graduate</h4>
-          <p class="text-xs text-slate-400">Cloud Foundations & Data Engineering Trained</p>
+          <p class="section-kicker">01 / About me</p>
+          <h2 class="section-title mt-3 text-3xl font-extrabold text-white md:text-4xl">A little about<br>my journey.</h2>
+        </div>
+        <div class="max-w-3xl space-y-5 text-base leading-8 text-slate-400">
+          <p>I'm an IT Engineering student at NCIT with an interest in software development, backend systems and solving real-world problems through technology.</p>
+          <p>I enjoy working across the development process — understanding a problem, designing a solution, writing code, debugging it and learning from the result. My recent work includes Django-based management systems and an interactive hand-tracking project using computer vision.</p>
+          <p>I'm continuously strengthening my fundamentals and looking for opportunities to collaborate, learn from experienced developers and contribute to meaningful software.</p>
         </div>
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="text-center space-y-6 py-8">
-      <div class="max-w-xl mx-auto space-y-3">
-        <h2 class="text-3xl font-extrabold text-white">Let's Work Together</h2>
-        <p class="text-slate-400 text-sm">
-          I am actively seeking internship roles in Software Engineering and Backend Development. Have a project, question, or opportunity? Drop me a message!
-        </p>
+    <!-- Skills -->
+    <section id="skills" class="scroll-mt-28 py-20">
+      <div class="reveal mb-10">
+        <p class="section-kicker">02 / What I work with</p>
+        <h2 class="section-title mt-3 text-3xl font-extrabold text-white md:text-4xl">My technical toolkit.</h2>
+        <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-400">Technologies I've worked with through coursework, practice and projects.</p>
       </div>
 
-      <div class="flex justify-center gap-4 pt-2">
-        <a href="https://linkedin.com/in/asha-giri-b081273a5" target="_blank" class="px-5 py-3 glass-card rounded-xl text-slate-200 hover:text-white text-sm font-semibold flex items-center gap-2 transition">
-          <i class="fab fa-linkedin text-purple-400"></i> LinkedIn
-        </a>
-        <a href="https://github.com/Ashagiri" target="_blank" class="px-5 py-3 glass-card rounded-xl text-slate-200 hover:text-white text-sm font-semibold flex items-center gap-2 transition">
-          <i class="fab fa-github text-purple-400"></i> GitHub
-        </a>
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <article class="glass reveal rounded-2xl p-6">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-xl bg-violet-400/10 text-xl text-violet-300"><i class="fa-solid fa-code"></i></div>
+          <h3 class="text-lg font-bold text-white">Languages</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="skill-chip rounded-lg px-3 py-2 text-xs">Python</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">JavaScript</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">SQL</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">HTML5</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">CSS3</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">PHP</span>
+          </div>
+        </article>
+        <article class="glass reveal rounded-2xl p-6">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-xl bg-cyan-400/10 text-xl text-cyan-300"><i class="fa-solid fa-layer-group"></i></div>
+          <h3 class="text-lg font-bold text-white">Frameworks & libraries</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="skill-chip rounded-lg px-3 py-2 text-xs">Django</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">Node.js</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">React</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">Tailwind CSS</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">Bootstrap</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">OpenCV</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">MediaPipe</span>
+          </div>
+        </article>
+        <article class="glass reveal rounded-2xl p-6">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-xl bg-sky-400/10 text-xl text-sky-300"><i class="fa-solid fa-database"></i></div>
+          <h3 class="text-lg font-bold text-white">Data & cloud</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="skill-chip rounded-lg px-3 py-2 text-xs">PostgreSQL</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">MySQL</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">SQLite</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">AWS Academy</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">REST APIs</span>
+          </div>
+        </article>
+        <article class="glass reveal rounded-2xl p-6 md:col-span-2 lg:col-span-3">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white">Development workflow</h3>
+              <p class="mt-1 text-sm text-slate-400">Tools and practices used while building and maintaining projects.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-chip rounded-lg px-3 py-2 text-xs">Git</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">GitHub</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">VS Code</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">Debugging</span><span class="skill-chip rounded-lg px-3 py-2 text-xs">Responsive design</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="mt-4 text-xs leading-6 text-slate-500">Only keep a technology listed if you can comfortably explain how you've used it. We can refine this list together.</p>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="scroll-mt-28 py-20">
+      <div class="reveal mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p class="section-kicker">03 / Selected work</p>
+          <h2 class="section-title mt-3 text-3xl font-extrabold text-white md:text-4xl">Projects I've built.</h2>
+          <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-400">A selection of projects that show what I've been learning and building.</p>
+        </div>
+        <a href="https://github.com/Ashagiri?tab=repositories" target="_blank" rel="noopener noreferrer" class="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-violet-300 hover:text-violet-200">All repositories <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+      </div>
+
+      <div class="grid gap-5 lg:grid-cols-2">
+        <article class="glass reveal overflow-hidden rounded-2xl">
+          <div class="project-topline"></div>
+          <div class="p-6 md:p-7">
+            <div class="flex items-center justify-between gap-3">
+              <span class="font-mono text-xs text-violet-300">01 / Full-stack web application</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-slate-500"></i>
+            </div>
+            
+            <div class="my-6 overflow-hidden rounded-xl border border-white/[.07] bg-slate-950">
+              <img src="assets/college-event-management-system.png"
+                   alt="Hospital Laboratory Management System login screen with Admin and Technician access options"
+                   class="block aspect-[16/9] w-full object-cover"
+                   loading="lazy">
+              <p class="border-t border-white/[.08] px-3 py-2 font-mono text-[10px] tracking-wide text-slate-400">HOSPITAL LAB MANAGEMENT · LOGIN INTERFACE</p>
+            </div>
+            <h3 class="text-xl font-bold text-white">College Event Management System</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-400">A Django application designed to manage campus events, student registrations, schedules and administrator workflows.</p>
+            <div class="mt-5 flex flex-wrap gap-2"><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">Python</span><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">Django</span><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">SQLite</span></div>
+            <a href="https://github.com/Ashagiri/College-Event-Management-System" target="_blank" rel="noopener noreferrer" class="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-semibold text-violet-300 hover:text-white">View source code <i class="fa-brands fa-github"></i></a>
+          </div>
+        </article>
+
+        <article class="glass reveal overflow-hidden rounded-2xl">
+          <div class="project-topline"></div>
+          <div class="p-6 md:p-7">
+            <div class="flex items-center justify-between gap-3">
+              <span class="font-mono text-xs text-cyan-300">02 / Backend application</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-slate-500"></i>
+            </div>
+            <div class="my-6 overflow-hidden rounded-xl border border-white/[.07] bg-slate-950">
+              <img src="assets/hospital-lab-demo.png"
+                   alt="Hospital Laboratory Management System login screen with Admin and Technician access options"
+                   class="block aspect-[16/9] w-full object-cover"
+                   loading="lazy">
+              <p class="border-t border-white/[.08] px-3 py-2 font-mono text-[10px] tracking-wide text-slate-400">HOSPITAL LAB MANAGEMENT · LOGIN INTERFACE</p>
+            </div>
+            <h3 class="text-xl font-bold text-white">Hospital Lab Management System</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-400">A healthcare-oriented Django project focused on lab bookings, diagnostic workflows and structured data management.</p>
+            <div class="mt-5 flex flex-wrap gap-2"><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">Python</span><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">Django</span><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">PostgreSQL</span></div>
+            <a href="https://github.com/Ashagiri/Hos-Lab-Era" target="_blank" rel="noopener noreferrer" class="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-white">View source code <i class="fa-brands fa-github"></i></a>
+          </div>
+        </article>
+
+        <article class="glass reveal overflow-hidden rounded-2xl lg:col-span-2">
+          <div class="project-topline"></div>
+          <div class="grid gap-6 p-6 md:grid-cols-[.7fr_1.3fr] md:items-center md:p-7">
+            <div class="overflow-hidden rounded-xl border border-white/[.10] bg-slate-950 shadow-2xl">
+              <img src="assets/handwall-demo.png"
+                   alt="Face-free Handwall demo showing blue virtual handwriting strokes on a black canvas in blue mode"
+                   class="block aspect-[16/9] w-full object-cover"
+                   loading="lazy">
+              <p class="border-t border-white/[.08] px-3 py-2 font-mono text-[10px] tracking-wide text-slate-400">LIVE DEMO · AIR WRITING · BLUE MODE</p>
+            </div>
+            <div>
+              <span class="font-mono text-xs text-fuchsia-300">03 / Computer vision & interaction</span>
+              <h3 class="mt-3 text-xl font-bold text-white">Handwall — AI Virtual Handwriting System</h3>
+              <p class="mt-3 text-sm leading-7 text-slate-400">A webcam-based virtual handwriting system that lets users draw in the air with hand gestures. It combines real-time hand-landmark tracking with on-screen strokes for a touch-free writing experience.</p>
+              <div class="mt-5 flex flex-wrap gap-2"><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">Python</span><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">OpenCV</span><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">MediaPipe</span><span class="skill-chip rounded-md px-2.5 py-1.5 font-mono text-[10px] text-slate-300">Streamlit</span></div>
+              <a href="https://github.com/Ashagiri/Handwall-AI-Virtual-Handwriting-System" target="_blank" rel="noopener noreferrer" class="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-semibold text-fuchsia-300 hover:text-white">Explore Handwall on GitHub <i class="fa-brands fa-github"></i></a>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
+    <!-- Journey / Certification -->
+    <section id="journey" class="scroll-mt-28 py-20">
+      <div class="reveal mb-10">
+        <p class="section-kicker">04 / Learning & growth</p>
+        <h2 class="section-title mt-3 text-3xl font-extrabold text-white md:text-4xl">The journey so far.</h2>
+      </div>
+      <div class="grid gap-5 md:grid-cols-2">
+        <article class="glass reveal rounded-2xl p-7">
+          <div class="flex items-start gap-4">
+            <div class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-violet-400/10 text-violet-300"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div>
+              <p class="font-mono text-xs text-violet-300">EDUCATION</p>
+              <h3 class="mt-2 text-lg font-bold text-white">NCIT</h3>
+              <p class="mt-1 text-sm leading-6 text-slate-400">IT Engineering student</p>
+              <p class="mt-3 text-xs leading-6 text-slate-500">Add your program details, study dates and relevant coursework here.</p>
+            </div>
+          </div>
+        </article>
+        <article class="glass reveal rounded-2xl p-7">
+          <div class="flex items-start gap-4">
+            <div class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-amber-400/10 text-amber-300"><i class="fa-solid fa-award"></i></div>
+            <div>
+              <p class="font-mono text-xs text-amber-300">CERTIFICATION</p>
+              <h3 class="mt-2 text-lg font-bold text-white">AWS Academy Graduate</h3>
+              <p class="mt-1 text-sm leading-6 text-slate-400">Cloud Foundations & Data Engineering training</p>
+              <p class="mt-3 text-xs leading-6 text-slate-500">Add the exact certificate title and credential link if available.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="scroll-mt-28 py-20">
+      <div class="glass reveal relative overflow-hidden rounded-3xl p-8 text-center md:p-14">
+        <div class="pointer-events-none absolute -right-20 -top-28 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl"></div>
+        <p class="section-kicker">05 / Contact</p>
+        <h2 class="section-title relative mt-4 text-3xl font-extrabold text-white md:text-5xl">Have an idea? Let's build it.</h2>
+        <p class="relative mx-auto mt-5 max-w-xl text-sm leading-7 text-slate-400 md:text-base">I'm interested in software engineering opportunities, collaborative projects and learning from people who love building useful technology.</p>
+        <div class="relative mt-8 flex flex-wrap justify-center gap-3">
+          <a href="https://linkedin.com/in/asha-giri-b081273a5" target="_blank" rel="noopener noreferrer" class="focus-ring inline-flex items-center gap-2 rounded-xl bg-violet-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-violet-400"><i class="fa-brands fa-linkedin"></i> Connect on LinkedIn</a>
+          <a href="https://github.com/Ashagiri" target="_blank" rel="noopener noreferrer" class="focus-ring inline-flex items-center gap-2 rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:bg-white/[.06]"><i class="fa-brands fa-github"></i> Follow on GitHub</a>
+        </div>
+        <!-- Add a public professional email address here when you are ready. -->
+      </div>
+    </section>
   </main>
 
-  <footer class="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500 relative z-10 font-mono">
-    © 2026 Asha Giri. Designed & Built with GitHub Pages.
+  <footer class="border-t border-white/[.07] px-5 py-8">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
+      <p class="text-xs text-slate-500">© <span id="year"></span> Asha Giri. Designed & built with care.</p>
+      <a href="#home" class="focus-ring text-xs text-slate-400 transition hover:text-violet-300">Back to top ↑</a>
+    </div>
   </footer>
 
+  <script>
+    // Mobile navigation
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuButton.addEventListener('click', () => {
+      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!isExpanded));
+      menuButton.setAttribute('aria-label', isExpanded ? 'Open navigation menu' : 'Close navigation menu');
+      mobileMenu.classList.toggle('hidden');
+      menuButton.innerHTML = isExpanded
+        ? '<i class="fa-solid fa-bars" aria-hidden="true"></i>'
+        : '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open navigation menu');
+        menuButton.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+      });
+    });
+
+    // Reveal sections as they enter the viewport
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            currentObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('visible'));
+    }
+
+    // Keep the footer year current
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
